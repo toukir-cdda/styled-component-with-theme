@@ -1,4 +1,5 @@
 "use client";
+import Toolbar from "@/components/Toolbar";
 import styled from "styled-components";
 
 export default function Home() {
@@ -25,7 +26,8 @@ export default function Home() {
 
   return (
     <Container>
-      <Text>hello Styled</Text>
+      <Text>Home</Text>
+      <Toolbar />
       <Nav>
         <div>logo</div>
         <div>menu</div>
