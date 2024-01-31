@@ -63,3 +63,14 @@ export const pink = {
     border: "hsl(300, 50%, 58%)",
   },
 };
+
+// theme presets for styled-components
+
+const themes = {
+  light: {
+    name: "light",
+    colors: {
+      //all color shades
+    },
+  },
+};
