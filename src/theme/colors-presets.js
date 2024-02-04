@@ -79,6 +79,22 @@ export const light = {
     footer: colors["gray-700"],
     text: colors["gray-900"],
     border: colors["gray-400"],
+    card: {
+      background: colors["gray-100"],
+      title: colors["gray-900"],
+      text: colors["gray-700"],
+      border: colors["gray-300"],
+    },
+    button: {
+      background: colors["blue-500"],
+      color: colors["gray-50"],
+      border: colors["blue-500"],
+      hover: {
+        background: colors["blue-600"],
+        color: colors["gray-50"],
+        border: colors["blue-600"],
+      },
+    },
   },
 };
 
@@ -88,9 +104,25 @@ export const dark = {
   primary: {
     header: colors["gray-800"],
     background: colors["gray-900"],
+    card: {
+      background: colors["gray-800"],
+      title: colors["gray-100"],
+      text: colors["gray-400"],
+      border: colors["gray-700"],
+    },
     footer: colors["gray-100"],
     text: colors["gray-100"],
     border: colors["gray-100"],
+    button: {
+      background: colors["blue-800"],
+      color: colors["gray-50"],
+      border: colors["blue-500"],
+      hover: {
+        background: colors["blue-600"],
+        color: colors["gray-50"],
+        border: colors["blue-600"],
+      },
+    },
   },
 };
 
@@ -103,6 +135,22 @@ export const blue = {
     footer: colors["blue-700"],
     text: colors["blue-900"],
     border: colors["blue-400"],
+    card: {
+      background: colors["blue-100"],
+      title: colors["blue-900"],
+      text: colors["blue-700"],
+      border: colors["blue-300"],
+    },
+    button: {
+      background: colors["blue-400"],
+      color: colors["gray-50"],
+      border: colors["blue-500"],
+      hover: {
+        background: colors["blue-600"],
+        color: colors["gray-50"],
+        border: colors["blue-600"],
+      },
+    },
   },
 };
 
@@ -115,6 +163,22 @@ export const green = {
     footer: colors["green-700"],
     text: colors["green-900"],
     border: colors["green-400"],
+    card: {
+      background: colors["green-100"],
+      title: colors["green-900"],
+      text: colors["green-700"],
+      border: colors["green-300"],
+    },
+    button: {
+      background: colors["green-400"],
+      color: colors["gray-50"],
+      border: colors["green-500"],
+      hover: {
+        background: colors["green-600"],
+        color: colors["gray-50"],
+        border: colors["green-600"],
+      },
+    },
   },
 };
 
@@ -127,6 +191,22 @@ export const brown = {
     footer: colors["yellow-700"],
     text: colors["yellow-900"],
     border: colors["yellow-400"],
+    card: {
+      background: colors["yellow-100"],
+      title: colors["yellow-900"],
+      text: colors["yellow-700"],
+      border: colors["yellow-300"],
+    },
+    button: {
+      background: colors["yellow-400"],
+      color: colors["gray-50"],
+      border: colors["yellow-500"],
+      hover: {
+        background: colors["yellow-600"],
+        color: colors["gray-50"],
+        border: colors["yellow-600"],
+      },
+    },
   },
 };
 
@@ -139,5 +219,21 @@ export const pink = {
     footer: colors["red-700"],
     text: colors["red-900"],
     border: colors["red-400"],
+    card: {
+      background: colors["red-100"],
+      title: colors["red-900"],
+      text: colors["red-700"],
+      border: colors["red-300"],
+    },
+    button: {
+      background: colors["red-400"],
+      color: colors["gray-50"],
+      border: colors["red-500"],
+      hover: {
+        background: colors["red-600"],
+        color: colors["gray-50"],
+        border: colors["red-600"],
+      },
+    },
   },
 };

@@ -17,7 +17,7 @@ export const Container = styled.div`
   justify-content: center;
   padding: 48px;
   gap: 48px;
-  background-color: white;
+  background-color: ${(props) => props.theme.primary?.card?.background};
   border-radius: 10px;
   max-width: 630px;
 `;
@@ -61,7 +61,7 @@ export const FormHeader = styled.div`
   width: 100%;
 
   & > h3 {
-    color: #1a1a1a;
+    color: ${(props) => props.theme.primary?.card?.title};
     font-size: 3rem;
     font-weight: 600;
   }
@@ -69,7 +69,7 @@ export const FormHeader = styled.div`
     font-size: 1rem;
     font-weight: 400;
     text-align: center;
-    color: #4d4d4d;
+    color: ${(props) => props.theme.primary?.card?.text};
   }
 `;
 
@@ -93,7 +93,7 @@ export const InputContainer = styled.div`
   & > label {
     font-size: 1rem;
     font-weight: 400;
-    color: #4d4d4d;
+    color: ${(props) => props.theme.primary?.card?.text};
   }
   & > div {
     width: 100%;
@@ -149,7 +149,7 @@ export const AggrementContainer = styled.label`
   & > p {
     font-size: 0.9rem;
     font-weight: 400;
-    color: #4d4d4d;
+    color: ${(props) => props.theme.primary?.card?.text};
   }
   & > a {
     color: #1570ef;

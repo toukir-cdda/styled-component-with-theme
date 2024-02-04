@@ -15,15 +15,16 @@ const Button = styled.button`
   padding: 10px 20px;
   margin-top: 15px;
   border-radius: 5px;
-  background-color: #1570ef;
-  color: white;
+  background-color: ${({ theme }) => theme.primary?.button?.background};
+  color: ${({ theme }) => theme.primary?.button?.color};
   cursor: pointer;
   border: none;
   width: 100%;
   font-size: 1rem;
   font-weight: 400;
   &:hover {
-    background-color: #0f6ecd;
+    background-color: ${({ theme }) =>
+      theme.primary?.button?.hover?.background};
   }
 `;
 
