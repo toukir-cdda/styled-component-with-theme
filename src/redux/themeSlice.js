@@ -6,12 +6,13 @@ import {
   brown,
   green,
   pink,
+  red,
 } from "@/theme/colors-presets";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   mode: "light",
-  themeList: [light, dark, blue, brown, green, pink],
+  themeList: [light, dark, blue, brown, green, pink, red],
   selectedTheme: {
     name: "light",
     primary: {
@@ -34,6 +35,10 @@ const themeSlice = createSlice({
     selectedThemeTemplate: (state, action) => {
       state.selectedTheme = action.payload;
       localStorage.setItem("current-theme", JSON.stringify(action.payload));
+    },
+    generateThemePresets: (state, action) => {
+      const themePresets = action.payload;
+      console.log(themePresets, "themePresets");
     },
   },
 });

@@ -4,10 +4,10 @@ export const SignUpWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   background-color: ${(props) => props.theme.primary.background};
   color: ${(props) => props.theme.primary.text};
-  padding: 0 20px;
+  padding: 20px;
 `;
 
 export const Container = styled.div`

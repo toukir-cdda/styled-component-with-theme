@@ -237,3 +237,31 @@ export const pink = {
     },
   },
 };
+
+export const red = {
+  name: "red",
+  colors: colors,
+  primary: {
+    header: colors["red-700"],
+    background: colors["red-400"],
+    footer: colors["red-700"],
+    text: colors["red-900"],
+    border: colors["red-400"],
+    card: {
+      background: colors["red-300"],
+      title: colors["red-900"],
+      text: colors["red-700"],
+      border: colors["red-300"],
+    },
+    button: {
+      background: colors["red-400"],
+      color: colors["gray-50"],
+      border: colors["red-500"],
+      hover: {
+        background: colors["red-600"],
+        color: colors["gray-50"],
+        border: colors["red-600"],
+      },
+    },
+  },
+};

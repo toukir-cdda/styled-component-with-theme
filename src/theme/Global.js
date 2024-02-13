@@ -36,6 +36,9 @@ body {
 .pink {
   background-color: ${themePresets.pink.primary.header};
 }
+.red {
+  background-color: ${themePresets.red.primary.header};
+}
 
 // active theme
 .active{

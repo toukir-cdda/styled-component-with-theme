@@ -1,13 +1,16 @@
+import useContextMenu from "@/hooks/useContextMenu";
 import { selectedThemeTemplate } from "@/redux/themeSlice";
 import { light } from "@/theme/colors-presets";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Toolbar = () => {
   const dispatch = useDispatch();
   const themeList = useSelector((state) => state.themes.themeList);
   const selectednTheme = useSelector((state) => state.themes.selectedTheme);
+
+  const { clicked, setClicked, points, setPoints } = useContextMenu();
 
   useEffect(() => {
     const currentTheme = JSON.parse(localStorage.getItem("current-theme"));
@@ -34,27 +37,73 @@ const Toolbar = () => {
       box-shadow: 2px 2px 2px ${({ theme }) => theme.primary.border};
   `;
   const Container = styled.div`
-    position: absolute;
-    top: 0;
-    right: 0;
+    // position: absolute;
+    // top: 0;
+    // right: 0;
     display: flex;
+    flex-direction: column;
     padding: 10px;
     align-items: center;
     justify-content: center;
   `;
 
+  const ContextMenu = styled.div`
+    position: absolute;
+    width: 200px;
+    background-color: #383838;
+    border-radius: 5px;
+    box-sizing: border-box;
+    ${({ top, left }) => css`
+      top: ${top}px;
+      left: ${left}px;
+    `}
+
+    ul {
+      box-sizing: border-box;
+      padding: 5px;
+      margin: 0;
+      list-style: none;
+    }
+    ul li {
+      padding: 10px 12px;
+    }
+    /* hover */
+    ul li:hover {
+      cursor: pointer;
+      background-color: #000000;
+    }
+  `;
+
   return (
     <Container>
-      <span>Themes: </span>
-      {themeList.map((theme, idx) => (
-        <ThemeButton
-          key={idx}
-          className={`${theme.name} ${
-            selectednTheme.name === theme.name ? "active" : ""
-          }`}
-          onClick={() => dispatch(selectedThemeTemplate(theme))}
-        ></ThemeButton>
-      ))}
+      <span>Themes</span>
+      <div>
+        {themeList.map((theme, idx) => (
+          <ThemeButton
+            key={idx}
+            className={`${theme.name} ${
+              selectednTheme.name === theme.name ? "active" : ""
+            }`}
+            onClick={() => dispatch(selectedThemeTemplate(theme))}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              setClicked(true);
+              setPoints({
+                x: e.pageX,
+                y: e.pageY - 26,
+              });
+            }}
+          ></ThemeButton>
+        ))}
+        {clicked && (
+          <ContextMenu top={points.y} left={points.x}>
+            <ul>
+              <li>Edit</li>
+              <li>Delete</li>
+            </ul>
+          </ContextMenu>
+        )}
+      </div>
     </Container>
   );
 };

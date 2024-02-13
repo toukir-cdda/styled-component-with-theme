@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -8,6 +9,7 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  border-bottom: 1px solid ${(props) => props.theme.primary.border};
 `;
 
 const Logo = styled.div`
@@ -41,7 +43,9 @@ const Menu = styled.div`
 const Navigation = () => {
   return (
     <Nav>
-      <Logo>Logo</Logo>
+      <Logo>
+        <Link href="/">Logo</Link>
+      </Logo>
       <Menu>
         <ul>
           <li>

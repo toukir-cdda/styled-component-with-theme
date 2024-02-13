@@ -1,28 +1,31 @@
 "use client";
 import Auth from "@/components/Auth";
+import Dform from "@/components/DynamicForm";
+import DataInputForm from "@/components/DynamicForm/DataInputForm";
+import Dynamic2 from "@/components/DynamicForm/Dynamic2";
+import DynamicForm1 from "@/components/DynamicForm/DynamicForm1";
 import Navigation from "@/components/Navigation";
+import Sidebar from "@/components/Sidebar";
+import ColorComponent from "@/components/Sidebar/components/color-shades/ColorComponent";
 import Toolbar from "@/components/Toolbar";
-import styled from "styled-components";
+import { getColorShades, getThemeColors } from "@/utils/getColors";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import styled, { keyframes } from "styled-components";
 
 export default function Home() {
   const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    background-color: ${(props) => props.theme.primary.background};
-  `;
-  const Text = styled.p`
-    color: ${(props) => props.theme.primary.text};
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
+    // position: relative;
+    // width: 100%;
+    // height: 100vh;
+    // overflow: hidden;
+    // background-color: ${(props) => props.theme.primary.background};
   `;
 
   return (
     <Container>
-      <Text>Theme</Text>
-      <Toolbar />
-      <Navigation />
       <Auth />
+      {/* <DataInputForm /> */}
     </Container>
   );
 }

@@ -1,0 +1,402 @@
+import { useState } from "react";
+
+const DynamicForm = () => {
+  const [formData, setFormData] = useState([
+    {
+      key: "",
+      value: "",
+      type: "string",
+    },
+  ]);
+
+  const [nestedFields, setNestedFields] = useState([]);
+
+  const handleFormChange = (index, field, value) => {
+    const updatedFormData = [...formData];
+    updatedFormData[index][field] = value;
+    setFormData(updatedFormData);
+  };
+
+  const handleNestedChange = (index, field, value) => {
+    const updatedNestedFields = [...nestedFields];
+    updatedNestedFields[index][field] = value;
+    setNestedFields(updatedNestedFields);
+  };
+
+  const handleAddFormField = () => {
+    setFormData([
+      ...formData,
+      {
+        key: "",
+        value: "",
+        type: "string",
+      },
+    ]);
+  };
+
+  const handleRemoveFormField = (index) => {
+    const updatedFormData = [...formData];
+    updatedFormData.splice(index, 1);
+    setFormData(updatedFormData);
+  };
+
+  const handleAddNestedField = () => {
+    setNestedFields([
+      ...nestedFields,
+      {
+        key: "",
+        value: "",
+        type: "string",
+      },
+    ]);
+  };
+
+  const handleRemoveNestedField = (index) => {
+    const updatedNestedFields = [...nestedFields];
+    updatedNestedFields.splice(index, 1);
+    setNestedFields(updatedNestedFields);
+  };
+
+  const handleSubmit = () => {
+    const finalObject = {};
+    formData.forEach((field) => {
+      if (field.type === "object") {
+        finalObject[field.key] = {};
+        nestedFields.forEach((nestedField) => {
+          finalObject[field.key][nestedField.key] = nestedField.value;
+        });
+      } else {
+        finalObject[field.key] = field.value;
+      }
+    });
+    console.log(finalObject);
+  };
+  console.log(formData, "formDat", nestedFields, "nestedFields");
+
+  return (
+    <div>
+      {formData.map((field, index) => (
+        <div key={index}>
+          <input
+            value={field.key}
+            onChange={(e) => handleFormChange(index, "key", e.target.value)}
+          />
+          <input
+            type={field.value}
+            value={field.value}
+            onChange={(e) => handleFormChange(index, "value", e.target.value)}
+          />
+          <select
+            value={field.type}
+            onChange={(e) => handleFormChange(index, "type", e.target.value)}
+          >
+            <option value="string">String</option>
+            <option value="object">Object</option>
+          </select>
+
+          {field.type === "object" && (
+            <div>
+              {nestedFields.map((f, i) => (
+                <div key={i}>
+                  <input
+                    value={f.key}
+                    onChange={(e) =>
+                      handleNestedChange(i, "key", e.target.value)
+                    }
+                  />
+                  <input
+                    value={f.value}
+                    onChange={(e) =>
+                      handleNestedChange(i, "value", e.target.value)
+                    }
+                  />
+                  <select
+                    value={f.type}
+                    onChange={(e) =>
+                      handleNestedChange(i, "type", e.target.value)
+                    }
+                  >
+                    <option value="string">String</option>
+                    <option value="object">Object</option>
+                  </select>
+                </div>
+              ))}
+
+              <button onClick={handleAddNestedField}>+</button>
+
+              <button onClick={handleRemoveNestedField}>-</button>
+            </div>
+          )}
+        </div>
+      ))}
+
+      <button onClick={handleAddFormField}>+</button>
+
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+};
+
+export default DynamicForm;
+
+
+const output={
+ root:[
+          {
+            "key": "background",
+            "value": "#f8fafc"
+        },
+        {
+            "key": "text",
+            "value": "#1e293b"
+        },
+        {
+            "key": "title",
+            "value": "#1e293b"
+        },
+        {
+            "key": "subtitle",
+            "value": "#64748b"
+        }
+ ],
+ children:{
+  card:{
+      root:[
+          {
+          "objectName": "card",
+          "key": "background",
+          "value": "#fff",
+          "childObjectName": ""
+          },
+          {
+              "objectName": "card",
+              "key": "text",
+              "value": "#1e293b"
+          },
+          {
+              "objectName": "card",
+              "key": "border",
+              "value": "#edf2f7"
+          }
+      ],
+      children:{}
+  }
+  nav:{
+    root:[
+            {
+                "objectName": "nav",
+                "key": "background",
+                "value": "#fff",
+                "childObjectName": ""
+            },
+    ],
+    children:{
+      navLink:{
+        root:[
+                {
+                    "objectName": "nav",
+                    "childObjectName": "navLink",
+                    "key": "background",
+                    "value": "#f8fafc",
+                    "isNestedObject": true,
+                    "parentOrder": "nav.navLink"
+                },
+                {
+                    "objectName": "nav. navLink",
+                    "key": "text",
+                    "value": "#1e293b"
+                },
+                {
+                    "objectName": "nav. navLink",
+                    "key": "text",
+                    "value": "#1e293b"
+                }
+            ],
+            children:{
+              url:{
+                root:[
+                  {
+                      "objectName": "navLink",
+                      "childObjectName": "url",
+                      "key": "text",
+                      "value": "green",
+                      "isNestedObject": true,
+                      "parentOrder": "navLink.url"
+                  }
+                ],
+                children:{}
+              }
+
+            }
+      }
+    }
+  }
+ }
+}
+
+
+
+
+if any object  have objectName but no childObjectName or childObjectName==="" then those are set like card:{root:[same objectName store here..{},{}],children:{}}
+then if any object have chiledObject then it will be store inside it like nav:{root:[same objectName store here..{},{}],children:{navLink:{root:[same objectName store here..{},{}],children:{}}}}
+else if any object name have string like "nav.navLink" then it indicate it will be store inside nav children which name is navLink like nav:{root:[same objectName store here..{},{}],children:{navLink:{root:[same objectName store here..{},{} and {
+    "objectName": "nav. navLink",
+    "key": "text",
+    "value": "#1e293b"
+}],children:{}}}}
+
+then if any objectName is semilar to any of children name like 
+{
+    "objectName": "navLink",
+    "childObjectName": "url",
+    "key": "text",
+    "value": "green",
+    "isNestedObject": true,
+    "parentOrder": "navLink.url"
+} here objectName is semilar to nav children>navLink but it also have nested object inside navLink thats why it need another nested object inside navLink like
+ nav:{root:[same objectName store here..{},{}],children:{navLink:{root:[same objectName store here..{},{}],children:{url:{root:[same childObjectName store here..{},{}],children:{}}}}}}
+
+ then if any objectName like "navLink.url" thats mean it will store  which children name is navLink with inside another childeen url 
+
+
+
+
+
+
+ promt 3:
+
+ i want to create a dynamic form where i want to make nested object ..also i want to array like 
+ generatedArray:[
+  {
+    objName:"null",
+    isObject:false,
+    isNested:false,
+    parent:null,
+    parentOrder:"root",
+    key:"background",
+    value:"#fff"
+  },
+  {
+    objName:"null",
+    isObject:false,
+    isNested:false,
+    parent:null,
+    parentOrder:"root",
+    key:"border",
+    value:"gray"
+  },
+  {
+    objName:"nav",
+    isObject:true,
+    isNested:false,
+    parent:null,
+    parentOrder:"root.nav",
+    key:"bg",
+    value:"#fff"
+  },
+  {
+    objName:"nav",
+    isObject:false,
+    isNested:false,
+    parent:null,
+    parentOrder:"root.nav",
+    key:"text",
+    value:"#000"
+  },
+  {
+    objName:"navLink",
+    isNested:true,
+    isObject:true,
+    parent:nav,
+    parentOrder:"root.nav.navLink",
+    key:"bg",
+    value:"#fff"
+  },
+  {
+    objName:"navLink",
+    isNested:true,
+    parent:nav,
+    parentOrder:"root.nav.navLink",
+    key:"text",
+    value:"red"
+  },
+  {
+    objName:"navUrl",
+    isNested:true,
+    parent:navLink,
+    parentOrder:"root.nav.navLink.navUrl",
+    key:"background",
+    value:"green"
+  },
+  {
+    objName:"navUrl",
+    isNested:true,
+    parent:navLink,
+    parentOrder:"root.nav.navLink.navUrl",
+    key:"border",
+    value:"white"
+  }
+ ]
+
+ obj={
+  base:{
+          root:[{
+                key:"background",
+                value:"#fff"
+              },
+              {
+                key:"border",
+                value:"gray"
+              }],
+          parent:null,
+          child:[nav],
+          parentOrder:"",
+        },
+  nav:{
+          root:[{
+                  key:"bg",
+                  value:"#fff"
+                },
+                {
+                  key:"text",
+                  value:"#000"
+                }],
+          parent:'base',
+          child:"navLink",
+          parentOrder:"base.nav",
+      },
+  navLink:{
+          root:[{
+                  key:"bg",
+                  value:"#fff"
+                },
+                {
+                  key:"text",
+                  value:"red"
+                }],
+          parent:'nav',
+          child:"navUrl",
+          parentOrder:"base.nav.navLink",
+      },
+  navUrl:{
+            root:[
+              {
+              key:"background",
+              value:"green"
+                },
+                {
+                  key:"border",
+                  value:"white"
+                }
+              ],
+            parent:'navLink',
+            child:"null",
+            parentOrder:"base.nav.navLink",
+      }
+ }
+
+here is the output of the form data .. i want to make a dynamic form using recursivly to make this type of json
+where i want 2 input field and multiple select box for set child, parent and parent order...if i select base then form input filed key and value will be store in base object
+root array. then if i make object then it have a option on new object if we click new object then it will ask which paren have i want to make this object if i selet base then object will be make on
+base after then if i again want to make another object then it will again all object name like base,nav, if i select nav then new object will be make inside nav.. 
+all those mathods are working recursivly and it can be make nested of nested object like this.
