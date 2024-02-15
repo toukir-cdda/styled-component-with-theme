@@ -18,7 +18,7 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: ${(props) => props.theme.primary.background};
+  background-color: ${(props) => props.theme?.primary?.background};
 `;
 const PagesLayout = styled.div`
   height: calc(100vh - 50px);

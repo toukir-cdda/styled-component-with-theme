@@ -9,8 +9,17 @@ import {
   PreviewContainer,
 } from "./Styled-element";
 import NestedObjectRenderer from "./components/NestedObjectRenderer";
+import { useDispatch } from "react-redux";
+import { generateThemePresets } from "@/redux/themeSlice";
+import { ArrayToObject, objectToArrayRecursive } from "./utils/dataConversion";
 
-function GeneratePreset() {
+function GeneratePreset({
+  defaultPreset,
+  newVarient = false,
+  editTheme = false,
+  setVisible,
+}) {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState([
     {
       name: "root",
@@ -19,51 +28,89 @@ function GeneratePreset() {
       children: [],
     },
   ]);
-  const [themeName, setThemeName] = useState("");
-
+  const [themeName, setThemeName] = useState(
+    (!newVarient && defaultPreset?.themeName) || ""
+  );
   const [orgainzedObject, setOrgainzedObject] = useState({});
   const [selectedField, setSelectedField] = useState(null);
   const [previousSelectedValue, setPreviousSelectedValue] = useState(null);
   const [selectedObjectName, setSelectedObjectName] = useState(null);
 
-  const organizeDataIntoTree = (array, parent_id = "root") => {
-    const parent = array.find((item) => item.name === parent_id);
-    if (!parent) return null;
+  // set preset on store if defaultPreset is not empty
+  const hanldeSavePresets = () => {
+    const presets = ArrayToObject(formData);
 
-    const obj = {};
-
-    parent.children.forEach((childName) => {
-      const child = array.find(
-        (item) => item.name === childName && item.parentName === parent.name
-      );
-      if (child) {
-        if (child.type === "object" || child.type === "array") {
-          obj[childName] = organizeDataIntoTree(array, child.name);
-        } else {
-          obj[childName] = child.value;
-        }
-      }
-    });
-
-    return obj;
-  };
-
-  const hanldeExpectedData = () => {
-    const presets = organizeDataIntoTree(formData);
+    const localBaseTheme = localStorage.getItem("base-theme");
+    const localVariants = localStorage.getItem("theme-variants");
+    const baseTheme = JSON.parse(localBaseTheme);
+    const variants = JSON.parse(localVariants) || [];
 
     if (themeName === "" || Object.keys(presets).length === 0) {
       alert("Please enter theme name and presets");
     } else {
-      const expectedData = {
-        themeName: themeName,
-        themePresets: presets,
-      };
-      console.log(expectedData, "presets");
+      if (variants.length > 0) {
+        //convert object to array base theme
+        const baseThemeArray = objectToArrayRecursive(baseTheme.themePresets);
+        //check if there is any varient
+        // iterate over variants and convert to array
+        variants.forEach((item) => {
+          // convert object to array
+          const variant = objectToArrayRecursive(item.themePresets);
+
+          // get new added objects
+          const newAddedArrayOfObjects = formData.slice(
+            baseThemeArray.length,
+            formData.length
+          );
+
+          const copyVariantArray = [...variant];
+
+          //if newAddedArrayOfObjects are set on copyVariantArray where it will set based on its parentName and children if parentName is match any name then
+          // it will set children to that parentName
+
+          newAddedArrayOfObjects.forEach((item) => {
+            const parentIndex = copyVariantArray.findIndex(
+              (child) => child.name === item.parentName
+            );
+            const parent = copyVariantArray[parentIndex];
+            const updatedParent = {
+              ...parent,
+              children: [...parent.children, item.name],
+            };
+            copyVariantArray[parentIndex] = updatedParent;
+            copyVariantArray.push(item);
+          });
+          const copyObject = ArrayToObject(copyVariantArray);
+          // dispatch to store
+          dispatch(
+            generateThemePresets({
+              themeName: item.themeName,
+              themePresets: copyObject,
+            })
+          );
+        });
+        // if (newVarient) {
+        const expectedData = {
+          themeName: themeName,
+          themePresets: presets,
+        };
+        dispatch(generateThemePresets(expectedData));
+        setVisible(false);
+        // }
+      } else {
+        const expectedData = {
+          themeName: themeName,
+          themePresets: presets,
+        };
+        //if there is no varient then update the base theme
+        dispatch(generateThemePresets(expectedData));
+        setVisible(false);
+      }
     }
   };
 
   useEffect(() => {
-    const organizedData = organizeDataIntoTree(formData);
+    const organizedData = ArrayToObject(formData);
     setOrgainzedObject(organizedData);
   }, [formData]);
 
@@ -98,30 +145,50 @@ function GeneratePreset() {
     setSelectedObjectName(null);
   };
 
+  useEffect(() => {
+    if (defaultPreset) {
+      setThemeName(
+        (!newVarient && defaultPreset?.themeName) || editTheme
+          ? defaultPreset?.themeName
+          : ""
+      );
+      const presets = objectToArrayRecursive(defaultPreset.themePresets);
+      setFormData(presets);
+    }
+  }, [defaultPreset]);
+
   return (
     <PresetContainer>
-      <PreHeader>Build Your Theme Presets</PreHeader>
+      <PreHeader>
+        Build Your Theme {newVarient ? "Varient" : "Presets"}{" "}
+      </PreHeader>
 
       <div>
         <h2>Theme Name</h2>
         <input
           type="text"
           value={themeName}
+          disabled={(!newVarient && defaultPreset?.themeName) || editTheme}
           onChange={(e) => setThemeName(e.target.value)}
         />
       </div>
       {/* ************************************************************Create Presets ****************************************************/}
-      <InputForm
-        selectedObjectName={selectedObjectName}
-        formData={formData}
-        setFormData={setFormData}
-        handleRemoveObject={handleRemoveObject}
-      />
+
+      {!newVarient && (
+        <InputForm
+          newVarient={newVarient}
+          selectedObjectName={selectedObjectName}
+          formData={formData}
+          setFormData={setFormData}
+          handleRemoveObject={handleRemoveObject}
+        />
+      )}
 
       {/* ************************************************************for update ****************************************************/}
       {selectedField && (
         <div style={{ padding: "20px 0px", position: "relative" }}>
           <UpdatePreset
+            newVarient={newVarient}
             selectedField={selectedField}
             setSelectedField={setSelectedField}
             formData={formData}
@@ -148,9 +215,8 @@ function GeneratePreset() {
           </button>
         </div>
       )}
-      <h2>Current Data</h2>
 
-      <button onClick={hanldeExpectedData}>Show Expected Data</button>
+      <button onClick={hanldeSavePresets}>Save Presets</button>
 
       {/* PreviewContainer  */}
       <PreviewContainer>

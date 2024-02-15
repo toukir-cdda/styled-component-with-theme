@@ -3,17 +3,17 @@ import React from "react";
 import styled from "styled-components";
 
 const Nav = styled.nav`
-  background-color: ${(props) => props.theme.primary.header};
+  background-color: ${(props) => props.theme?.themePresets?.nav?.bg};
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  border-bottom: 1px solid ${(props) => props.theme.primary.border};
+  border-bottom: 1px solid ${(props) => props.theme?.primary?.border};
 `;
 
 const Logo = styled.div`
-  color: ${(props) => props.theme.primary.text};
+  color: ${(props) => props.theme?.primary?.text};
   font-size: 1.5rem;
   font-weight: bold;
 `;
@@ -26,17 +26,17 @@ const Menu = styled.div`
 
   li {
     margin: 0 10px;
-    background-color: ${(props) => props.theme.primary.text};
+    background-color: ${(props) => props.theme?.primary?.text};
     padding: 10px;
     border-radius: 5px;
     &:hover {
-      background-color: ${(props) => props.theme.primary.text};
+      background-color: ${(props) => props.theme?.primary?.text};
     }
   }
 
   a {
     text-decoration: none;
-    color: ${(props) => props.theme.primary.text};
+    color: ${(props) => props.theme?.primary?.text};
   }
 `;
 

@@ -3,6 +3,7 @@ import Toolbar from "../Toolbar";
 import { SidebarWrapper } from "./Styled-elements";
 import ColorShades from "./components/color-shades/ColorShades";
 import Link from "next/link";
+import ThemeToolBar from "../ThemeToolBar";
 
 const Sidebar = () => {
   // toggle sidebar state and on off using toggle button
@@ -17,11 +18,13 @@ const Sidebar = () => {
       <button onClick={toggleSidebar}>Toggle</button>
       {/* sidebar */}
       <h1>Sidebar</h1>
-      <Toolbar />
-      <Link href="/generate-presets">Create Presets</Link>
+      {/* <Toolbar /> */}
+      {/* <Link href="/generate-presets">Create Presets</Link> */}
+
+      <ThemeToolBar />
 
       {/* color shades generator */}
-      <ColorShades />
+      {/* <ColorShades /> */}
       {/* <Shades /> */}
       {/* <Accordion
         data={[

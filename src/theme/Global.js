@@ -11,37 +11,37 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 body {
-  background-color:${({ theme }) => theme.primary.background} ;
-  color: ${({ theme }) => theme.primary.text};
+  background-color:${({ theme }) => theme?.primary?.background} ;
+  color: ${({ theme }) => theme?.primary?.text};
   font-family: monospace;
   overflow-x: hidden;
 }
 
 // theme buttons color
 .light {
-  background-color: ${themePresets.light.primary.header};
+  background-color: ${themePresets?.light?.primary?.header};
 }
 .dark {
-  background-color: ${themePresets.dark.primary.header};
+  background-color: ${themePresets?.dark?.primary?.header};
 }
 .blue {
-  background-color: ${themePresets.blue.primary.header};
+  background-color: ${themePresets?.blue?.primary?.header};
 }
 .green {
-  background-color: ${themePresets.green.primary.header};
+  background-color: ${themePresets?.green?.primary?.header};
 }
 .brown {
-  background-color: ${themePresets.brown.primary.header};
+  background-color: ${themePresets?.brown?.primary?.header};
 }
 .pink {
-  background-color: ${themePresets.pink.primary.header};
+  background-color: ${themePresets?.pink?.primary?.header};
 }
 .red {
-  background-color: ${themePresets.red.primary.header};
+  background-color: ${themePresets?.red?.primary?.header};
 }
 
 // active theme
 .active{
-    border: 3px solid ${({ theme }) => theme.primary.border};
+    border: 3px solid ${({ theme }) => theme?.primary?.border};
 }
 `;

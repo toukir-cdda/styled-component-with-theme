@@ -3,6 +3,7 @@ import { removeField, updateField } from "../utils/updatePresets";
 import { ButtonContainer, InputContainer, Wrapper } from "../Styled-element";
 
 const UpdatePreset = ({
+  newVarient,
   selectedField,
   setSelectedField,
   formData,
@@ -15,6 +16,7 @@ const UpdatePreset = ({
         <div>
           Key:
           <input
+            disabled={newVarient}
             value={selectedField.key}
             onChange={(e) =>
               setSelectedField((prev) => ({ ...prev, key: e.target.value }))
@@ -66,14 +68,17 @@ const UpdatePreset = ({
         >
           Update
         </button>
-        <button
-          onClick={() =>
-            removeField({ selectedField, setFormData, setSelectedField })
-          }
-          style={{ backgroundColor: "#e76d6d" }}
-        >
-          remove
-        </button>
+        {!newVarient && (
+          <button
+            disabled={newVarient}
+            onClick={() =>
+              removeField({ selectedField, setFormData, setSelectedField })
+            }
+            style={{ backgroundColor: "#e76d6d" }}
+          >
+            remove
+          </button>
+        )}
       </ButtonContainer>
     </Wrapper>
   );

@@ -4,21 +4,11 @@ import { resetAllPresets } from "../utils/removePresets";
 import { ButtonContainer, InputContainer, Wrapper } from "../Styled-element";
 
 const InputForm = ({
-  //   key,
-  //   setKey,
-  //   value,
-  //   parent,
-  //   selectedField,
+  newVarient,
   selectedObjectName,
   formData,
   setFormData,
-  //   handleChangeKey,
-  //   handleChangeValue,
-  //   handleChangeParent,
-  //   handleAddObject,
-  //   handleAddString,
   handleRemoveObject,
-  //   handleResetForm,
 }) => {
   const [key, setKey] = useState("");
   const [value, setValue] = useState("");
@@ -61,35 +51,39 @@ const InputForm = ({
         </div>
       </InputContainer>
 
-      <ButtonContainer>
-        <button
-          onClick={() =>
-            addObject({ formData, setFormData, setKey, key, parent })
-          }
-        >
-          Add Object
-        </button>
-        <button
-          onClick={() =>
-            addString({
-              formData,
-              setFormData,
-              setKey,
-              key,
-              parent,
-              value,
-              setValue,
-            })
-          }
-        >
-          Add String
-        </button>
-        {selectedObjectName && (
-          <button onClick={handleRemoveObject}>Remove Object</button>
-        )}
+      {!newVarient && (
+        <ButtonContainer>
+          <button
+            onClick={() =>
+              addObject({ formData, setFormData, setKey, key, parent })
+            }
+          >
+            Add Object
+          </button>
+          <button
+            onClick={() =>
+              addString({
+                formData,
+                setFormData,
+                setKey,
+                key,
+                parent,
+                value,
+                setValue,
+              })
+            }
+          >
+            Add String
+          </button>
+          {selectedObjectName && (
+            <button onClick={handleRemoveObject}>Remove Object</button>
+          )}
 
-        <button onClick={() => resetAllPresets({ setFormData })}>Reset</button>
-      </ButtonContainer>
+          <button onClick={() => resetAllPresets({ setFormData })}>
+            Reset
+          </button>
+        </ButtonContainer>
+      )}
     </Wrapper>
   );
 };

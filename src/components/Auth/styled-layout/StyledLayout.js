@@ -5,8 +5,8 @@ export const SignUpWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  background-color: ${(props) => props.theme.primary.background};
-  color: ${(props) => props.theme.primary.text};
+  background-color: ${(props) => props.theme?.themePresets?.bg};
+  color: ${(props) => props.theme?.primary?.text};
   padding: 20px;
 `;
 
@@ -17,7 +17,7 @@ export const Container = styled.div`
   justify-content: center;
   padding: 48px;
   gap: 48px;
-  background-color: ${(props) => props.theme.primary?.card?.background};
+  background-color: ${(props) => props.theme?.themePresets?.card?.bg};
   border-radius: 10px;
   max-width: 630px;
 `;
@@ -61,7 +61,7 @@ export const FormHeader = styled.div`
   width: 100%;
 
   & > h3 {
-    color: ${(props) => props.theme.primary?.card?.title};
+    color: ${(props) => props.theme?.primary?.card?.title};
     font-size: 3rem;
     font-weight: 600;
   }
@@ -69,7 +69,7 @@ export const FormHeader = styled.div`
     font-size: 1rem;
     font-weight: 400;
     text-align: center;
-    color: ${(props) => props.theme.primary?.card?.text};
+    color: ${(props) => props.theme?.primary?.card?.text};
   }
 `;
 
@@ -93,7 +93,7 @@ export const InputContainer = styled.div`
   & > label {
     font-size: 1rem;
     font-weight: 400;
-    color: ${(props) => props.theme.primary?.card?.text};
+    color: ${(props) => props.theme?.primary?.card?.text};
   }
   & > div {
     width: 100%;
@@ -149,7 +149,7 @@ export const AggrementContainer = styled.label`
   & > p {
     font-size: 0.9rem;
     font-weight: 400;
-    color: ${(props) => props.theme.primary?.card?.text};
+    color: ${(props) => props.theme?.primary?.card?.text};
   }
   & > a {
     color: #1570ef;

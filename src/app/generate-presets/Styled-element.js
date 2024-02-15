@@ -60,12 +60,22 @@ export const ButtonContainer = styled.div`
     &:hover {
       background-color: #3b7a9e;
     }
+    &:disabled {
+      background-color: #3b7a9e;
+      not-allowed;
+    }
+
   }
   button:nth-child(3) {
     background-color: #e76d6d;
     &:hover {
       background-color: #c95a5a;
     }
+    &:disabled {
+      background-color: #c95a5a;
+      not-allowed;
+    }
+
   }
 `;
 
