@@ -82,7 +82,9 @@ const ThemeToolBar = () => {
       <DefaultThemeContainer>
         <DefaultThemeHeader>
           <p>Base</p>
-          <span onClick={() => handleMakeVarient()}>Make Varient</span>
+          {Object.keys(defaultBaseTheme.themePresets).length > 0 && (
+            <span onClick={() => handleMakeVarient()}>Make Varient</span>
+          )}
         </DefaultThemeHeader>
         <button
           onContextMenu={(e) => {

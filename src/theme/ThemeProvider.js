@@ -24,12 +24,13 @@ const ThemeProvider = ({ children }) => {
     const localStorageCurrentTheme = JSON.parse(
       localStorage.getItem("current-theme")
     );
+
     //load all theme from local storage
     dispatch(
       loadTheme({
-        currentTheme: localStorageCurrentTheme,
-        baseTheme: localStorageBaseTheme,
-        themeVarients: localStorageThemeVarient,
+        currentTheme: localStorageCurrentTheme ? localStorageCurrentTheme : {},
+        baseTheme: localStorageBaseTheme ? localStorageBaseTheme : defaultTheme,
+        themeVarients: localStorageThemeVarient ? localStorageThemeVarient : [],
       })
     );
   }, []);

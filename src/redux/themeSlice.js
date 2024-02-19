@@ -48,7 +48,7 @@ const themeSlice = createSlice({
         localStorage.setItem("base-theme", JSON.stringify(theme));
       } else {
         //if theme.themeName is already exists then update the theme else add new theme also update on local storage
-        const themeIndex = state.theme.themeVarients.findIndex(
+        const themeIndex = state.theme?.themeVarients?.findIndex(
           (item) => item.themeName === theme.themeName
         );
 
