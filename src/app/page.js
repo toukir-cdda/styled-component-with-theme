@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <Container>
       <Auth />
-      {/* <Button>Click me</Button> */}
+      <Button>Click me</Button>
       {/* <DataInputForm /> */}
     </Container>
   );

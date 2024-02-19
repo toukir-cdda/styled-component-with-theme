@@ -49,16 +49,16 @@ const Navigation = () => {
       <Menu>
         <ul>
           <li>
-            <a href="#">Home</a>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <a href="#">About</a>
+            <Link href="about">About</Link>
           </li>
           <li>
-            <a href="#">Contact</a>
+            <Link href="contact">Contact</Link>
           </li>
           <li>
-            <a href="#">Login</a>
+            <Link href="auth">Login</Link>
           </li>
         </ul>
       </Menu>

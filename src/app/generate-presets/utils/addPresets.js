@@ -49,12 +49,20 @@ export const addString = ({
     return;
   }
 
+  // check if the parent already has the same key in its children
+  const parentItem = formData.find((item) => item.name === parent);
+  if (parentItem && parentItem.children && parentItem.children.includes(key)) {
+    alert("Key already exists in this parent");
+    return;
+  }
+
   const newFormData = formData.concat({
     name: key,
     parentName: parent,
     type: "string",
     value: value,
   });
+
   const newData = newFormData.map((item) => {
     if (item.name === parent) {
       return {
@@ -66,7 +74,6 @@ export const addString = ({
   });
   setFormData(newData);
 
-  // setFormData(newFormData);
   setKey("");
   setValue("");
 };

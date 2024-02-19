@@ -8,11 +8,7 @@ const Container = styled.div`
 `;
 
 const GeneratePresets = () => {
-  return (
-    <Container>
-      <GeneratePreset />
-    </Container>
-  );
+  return <Container>{/* <GeneratePreset /> */}</Container>;
 };
 
 export default GeneratePresets;

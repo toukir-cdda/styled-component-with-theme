@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../Modal";
 import GeneratePreset from "@/app/generate-presets/GeneratePreset";
-import { selectedThemeTemplate } from "@/redux/themeSlice";
+import { deleteVarient, selectedThemeTemplate } from "@/redux/themeSlice";
 
 const ThemeToolBar = () => {
   const dispatch = useDispatch();
@@ -63,6 +63,13 @@ const ThemeToolBar = () => {
       setMakeThemeVarient(true);
       setEditTheme(true);
     }
+  };
+
+  // handle remove varient
+  const handleRemoveVarient = (theme) => {
+    // ask for confirmation before deleting the theme if yes then delete the theme
+    confirm("Are you sure you want to delete this theme?") &&
+      dispatch(deleteVarient(theme.themeName));
   };
 
   return (
@@ -136,7 +143,9 @@ const ThemeToolBar = () => {
         <ContextMenu top={points.y} left={points.x}>
           <ul>
             <li onClick={() => handleEdit(selectedTheme)}>Edit</li>
-            <li>Delete</li>
+            {selectedTheme.themeName !== "default" && (
+              <li onClick={() => handleRemoveVarient(selectedTheme)}>Delete</li>
+            )}
           </ul>
         </ContextMenu>
       )}
