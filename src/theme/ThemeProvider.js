@@ -7,8 +7,12 @@ import { loadTheme } from "@/redux/themeSlice";
 
 const ThemeProvider = ({ children }) => {
   const dispatch = useDispatch();
-  const selectednTheme = useSelector((state) => state.themes.selectedTheme);
-  const defaultTheme = useSelector((state) => state.themes.theme.baseTheme);
+  const selectednTheme =
+    useSelector((state) => state.themes.selectedTheme) || {};
+  const defaultTheme = useSelector((state) => state.themes.theme.baseTheme) || {
+    themeName: "default",
+    themePresets: {},
+  };
 
   useEffect(() => {
     const localStorageBaseTheme = JSON.parse(
