@@ -63,7 +63,6 @@ const ThemeToolBar = () => {
       setMakeThemeVarient(true);
       setEditTheme(true);
     }
-    console.log(themeName);
   };
 
   return (
@@ -128,30 +127,6 @@ const ThemeToolBar = () => {
               </button>
             );
           })}
-          {/* <button
-            onContextMenu={(e) => {
-              e.preventDefault();
-              setClicked(true);
-              setPoints({
-                x: e.pageX,
-                y: e.pageY - 26,
-              });
-            }}
-          >
-            Dark
-          </button>
-          <button
-            onContextMenu={(e) => {
-              e.preventDefault();
-              setClicked(true);
-              setPoints({
-                x: e.pageX,
-                y: e.pageY - 26,
-              });
-            }}
-          >
-            Light
-          </button> */}
         </div>
       </ThemeVarients>
 

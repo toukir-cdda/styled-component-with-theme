@@ -23,7 +23,6 @@ export const addObject = ({ formData, setFormData, setKey, key, parent }) => {
   });
   const newData = newFormData.map((item) => {
     if (item.name === parent) {
-      console.log(item, "item");
       return {
         ...item,
         children: [...item.children, key],

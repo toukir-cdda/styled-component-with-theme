@@ -10,24 +10,16 @@ import {
 } from "@/theme/colors-presets";
 import { createSlice } from "@reduxjs/toolkit";
 
-const localStorageBaseTheme = JSON.parse(localStorage.getItem("base-theme"));
-const localStorageThemeVarient = JSON.parse(
-  localStorage.getItem("theme-variants")
-);
-const localStorageCurrentTheme = JSON.parse(
-  localStorage.getItem("current-theme")
-);
-
 const initialState = {
   mode: "light",
   themeList: [light, dark, blue, brown, green, pink, red],
-  selectedTheme: localStorageCurrentTheme || {},
+  selectedTheme: {},
   theme: {
-    baseTheme: localStorageBaseTheme || {
+    baseTheme: {
       themeName: "default",
       themePresets: {},
     },
-    themeVarients: localStorageThemeVarient || [],
+    themeVarients: [],
   },
 };
 
@@ -37,6 +29,12 @@ const themeSlice = createSlice({
   reducers: {
     setThemeMode: (state, action) => {
       state.mode = action.payload;
+    },
+    loadTheme: (state, action) => {
+      const { currentTheme, baseTheme, themeVarients } = action.payload;
+      state.selectedTheme = currentTheme;
+      state.theme.baseTheme = baseTheme;
+      state.theme.themeVarients = themeVarients;
     },
     selectedThemeTemplate: (state, action) => {
       state.selectedTheme = action.payload;
@@ -69,6 +67,10 @@ const themeSlice = createSlice({
   },
 });
 
-export const { setThemeMode, selectedThemeTemplate, generateThemePresets } =
-  themeSlice.actions;
+export const {
+  setThemeMode,
+  selectedThemeTemplate,
+  generateThemePresets,
+  loadTheme,
+} = themeSlice.actions;
 export default themeSlice.reducer;

@@ -19,12 +19,27 @@ export default function Home() {
     // width: 100%;
     // height: 100vh;
     // overflow: hidden;
-    // background-color: ${(props) => props.theme.primary.background};
+  `;
+
+  const Button = styled.button`
+    background-color: ${(props) => props.theme?.themePresets?.primaryBtn?.bg};
+    color: ${(props) => props.theme?.themePresets?.primaryBtn?.text};
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: ${(props) =>
+        props.theme?.themePresets?.primaryBtn?.hover};
+      color: ${(props) => props.theme?.themePresets?.primaryBtn?.text};
+    }
   `;
 
   return (
     <Container>
       <Auth />
+      {/* <Button>Click me</Button> */}
       {/* <DataInputForm /> */}
     </Container>
   );
